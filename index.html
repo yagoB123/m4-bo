@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Pro Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="darkmode.js" defer></script>
+    <script src="node.js" defer></script>
+    <script src="search.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-basketball-ball"></i>
+                <span>Basketball Pro Shop</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" type="button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="search-container">
+                    <form id="searchForm" class="search-form">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                <a href="javascript:void(0);" class="cart-btn nav-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge"></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Basketball Pro Shop</h1>
+            <p>Get your game ready with premium basketball gear</p>
+            <a href="products.html" class="cta-button">Shop Now</a>
+        </section>
+
+        <section id="products" class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <a href="product-detail.html?id=varsity-ball" class="product-card">
+                    <img src="img/varsity-ball.jpg" alt="Varsity Basketball">
+                    <div class="product-content">
+                        <h3>Varsity Basketball</h3>
+                        <p class="price">$49.99</p>
+                        <button class="add-to-cart" onclick="event.stopPropagation(); if (typeof cart !== 'undefined') { cart.addToCart({id: 'varsity-ball', name: 'Varsity Basketball', price: 49.99, image: 'img/varsity-ball.jpg'}) } else { console.error('Cart not initialized'); }">
+                            Add to Cart
+                        </button>
+                    </div>
+                </a>
+                <a href="product-detail.html?id=pro-training-shoes" class="product-card">
+                    <img src="https://via.placeholder.com/300x300" alt="Pro Training Shoes">
+                    <div class="product-content">
+                        <h3>Pro Training Shoes</h3>
+                        <p class="price">$129.99</p>
+                        <button class="add-to-cart" onclick="event.stopPropagation(); if (typeof cart !== 'undefined') { cart.addToCart({id: 'pro-training-shoes', name: 'Pro Training Shoes', price: 129.99, image: 'https://via.placeholder.com/300x300'}) } else { console.error('Cart not initialized'); }">
+                            Add to Cart
+                        </button>
+                    </div>
+                </a>
+                <a href="product-detail.html?id=team-jersey" class="product-card">
+                    <img src="https://via.placeholder.com/300x300" alt="Team Jersey">
+                    <div class="product-content">
+                        <h3>Team Jersey</h3>
+                        <p class="price">$59.99</p>
+                        <button class="add-to-cart" onclick="event.stopPropagation(); if (typeof cart !== 'undefined') { cart.addToCart({id: 'team-jersey', name: 'Team Jersey', price: 59.99, image: 'https://via.placeholder.com/300x300'}) } else { console.error('Cart not initialized'); }">
+                            Add to Cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Your one-stop shop for all basketball needs</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@basketballproshop.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Basketball Pro Shop. All rights reserved.</p>
+        </div>
+    </footer>
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically inserted here -->
+            <p class="empty-cart-message">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    
+    <script>
+        // Initialize dark mode and cart when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initDarkMode === 'function') {
+                initDarkMode();
+            }
+            if (typeof initCart === 'function') {
+                initCart();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

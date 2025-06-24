@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Basketball Pro Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-basketball-ball"></i>
+                <span>Basketball Pro Shop</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" type="button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="search-container">
+                    <form id="searchForm" class="search-form">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                <a href="javascript:void(0);" class="cart-btn nav-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge"></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="product-detail-container">
+        <div class="product-gallery">
+            <div class="main-image">
+                <img id="mainProductImage" src="" alt="Product Image">
+            </div>
+            <div class="thumbnail-container" id="thumbnailContainer">
+                <!-- Thumbnails will be added by JavaScript -->
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1 id="productTitle">Loading Product...</h1>
+            <div class="product-meta">
+                <span class="product-sku" id="productSku">SKU: Loading...</span>
+                <span class="product-stock" id="productStock">In Stock</span>
+            </div>
+            <div class="product-price" id="productPrice">$0.00</div>
+            <div class="product-description" id="productDescription">
+                <p>Loading product details...</p>
+            </div>
+            <div class="product-actions">
+                <div class="quantity-selector">
+                    <button class="quantity-btn" id="decreaseQty">-</button>
+                    <input type="number" id="quantity" value="1" min="1">
+                    <button class="quantity-btn" id="increaseQty">+</button>
+                </div>
+                <button class="add-to-cart-btn" id="addToCartBtn">Add to Cart</button>
+            </div>
+            <div class="product-details-toggle">
+                <div class="detail-section">
+                    <button class="detail-toggle" data-target="description">Description <i class="fas fa-chevron-down"></i></button>
+                    <div class="detail-content" id="description">
+                        <p id="fullDescription">Loading full description...</p>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <button class="detail-toggle" data-target="specs">Specifications <i class="fas fa-chevron-down"></i></button>
+                    <div class="detail-content" id="specs">
+                        <ul id="specsList">
+                            <!-- Will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button id="closeCart" class="close-cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <!-- Cart items will be added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Your one-stop shop for all basketball gear and equipment.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@basketballproshop.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Basketball Pro Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = {
+            'pro-training-shoes': {
+                name: 'Pro Training Shoes',
+                price: 129.99,
+                image: 'img/pro-training-shoes.jpg',
+                images: [
+                    'img/pro-training-shoes.jpg',
+                    'img/pro-training-shoes-side.jpg'
+                ],
+                description: 'High-performance basketball shoes for serious training and games.',
+                fullDescription: '<p>Engineered for maximum performance with advanced cushioning and ankle support.</p>',
+                category: 'Basketball Shoes',
+                sku: 'BBS-001',
+                inStock: true,
+                specs: {
+                    'Material': 'Synthetic leather, mesh',
+                    'Sole': 'Rubber',
+                    'Closure': 'Lace-up',
+                    'Weight': '400g (per shoe)'
+                }
+            },
+            'classic-high-tops': {
+                name: 'Classic High-Tops',
+                price: 149.99,
+                image: 'img/classic-high-tops.jpg',
+                images: [
+                    'img/classic-high-tops.jpg',
+                    'img/classic-high-tops-side.jpg'
+                ],
+                description: 'Timeless high-top basketball shoes with modern comfort technology.',
+                fullDescription: '<p>The Classic High-Tops combine retro style with modern performance features. These shoes offer excellent ankle support and cushioning for all-day comfort on and off the court.</p><p>Features include premium leather construction, cushioned insole, and durable rubber outsole.</p>',
+                category: 'Basketball Shoes',
+                sku: 'BBS-002',
+                inStock: true,
+                specs: {
+                    'Material': 'Leather, canvas',
+                    'Sole': 'Rubber',
+                    'Closure': 'Lace-up',
+                    'Weight': '450g (per shoe)'
+                }
+            },
+            'varsity-ball': {
+                name: 'Varsity Basketball',
+                price: 49.99,
+                image: 'img/varsity-ball.jpg',
+                images: [
+                    'img/varsity-ball.jpg',
+                    'img/varsity-ball-detail.jpg'
+                ],
+                description: 'Official size and weight indoor basketball with premium grip and feel.',
+                fullDescription: '<p>The Varsity Basketball is designed for serious players who demand the best performance. Made with premium composite leather for superior grip and consistent bounce.</p><p>Ideal for competitive play and training sessions.</p>',
+                category: 'Basketballs',
+                sku: 'BB-001',
+                inStock: true,
+                specs: {
+                    'Material': 'Composite leather',
+                    'Size': 'Official (Size 7)',
+                    'Weight': '22 oz',
+                    'Type': 'Indoor'
+                }
+            },
+            'wilson-evolution': {
+                name: 'Wilson Evolution',
+                price: 64.99,
+                image: 'img/wilson-ball.jpg',
+                images: [
+                    'img/wilson-ball.jpg',
+                    'img/wilson-ball-detail.jpg'
+                ],
+                description: 'The official game ball of high school and college basketball leagues.',
+                fullDescription: '<p>The Wilson Evolution is the #1 selling basketball in America. Its premium composite leather cover provides superior grip and durability, while the cushion core offers excellent feel and consistent bounce.</p><p>Approved for NFHS and NCAA play.</p>',
+                category: 'Basketballs',
+                sku: 'BB-003',
+                inStock: true,
+                specs: {
+                    'Material': 'Premium composite leather',
+                    'Size': 'Official (Size 7)',
+                    'Weight': '20 oz',
+                    'Type': 'Indoor'
+                }
+            },
+            'spalding-varsity': {
+                name: 'Spalding Varsity Basketball',
+                price: 54.99,
+                image: 'img/spalding-varsity.jpg',
+                images: [
+                    'img/spalding-varsity.jpg',
+                    'img/spalding-varsity-detail.jpg'
+                ],
+                description: 'Official game basketball with premium composite leather.',
+                fullDescription: '<p>Premium composite leather cover for excellent grip and durability. Ideal for both indoor and outdoor play.</p>',
+                category: 'Basketballs',
+                sku: 'BB-004',
+                inStock: true,
+                specs: {
+                    'Material': 'Premium composite leather',
+                    'Size': 'Official (Size 7)',
+                    'Weight': '22 oz',
+                    'Type': 'Indoor/Outdoor'
+                }
+            },
+            'team-jersey': {
+                name: 'Team Jersey',
+                price: 59.99,
+                image: 'img/team-jersey.jpg',
+                images: [
+                    'img/team-jersey.jpg',
+                    'img/team-jersey-back.jpg'
+                ],
+                description: 'Official team basketball jersey with moisture-wicking fabric.',
+                fullDescription: '<p>Stay comfortable and look professional with our Team Jersey. Made from high-performance moisture-wicking fabric that keeps you dry during intense games.</p><p>Features include reinforced stitching and a comfortable fit.</p>',
+                category: 'Jerseys',
+                sku: 'JER-001',
+                inStock: true,
+                specs: {
+                    'Material': '100% Polyester',
+                    'Fit': 'Athletic',
+                    'Sleeve': 'Sleeveless',
+                    'Care': 'Machine wash cold',
+                    'Sizes': 'S, M, L, XL, XXL'
+                }
+            },
+            'practice-jersey': {
+                name: 'Practice Jersey',
+                price: 49.99,
+                image: 'img/practice-jersey.jpg',
+                images: [
+                    'img/practice-jersey.jpg',
+                    'img/practice-jersey-back.jpg'
+                ],
+                description: 'Comfortable practice jersey for team training sessions.',
+                fullDescription: '<p>Perfect for team practices and training sessions. Made from breathable, quick-drying fabric to keep you comfortable during intense workouts.</p><p>Features include mesh side panels for ventilation and a relaxed fit.</p>',
+                category: 'Jerseys',
+                sku: 'JER-002',
+                inStock: true,
+                specs: {
+                    'Material': '100% Polyester mesh',
+                    'Fit': 'Regular',
+                    'Sleeve': 'Sleeveless',
+                    'Care': 'Machine wash cold',
+                    'Sizes': 'S, M, L, XL, XXL'
+                }
+            },
+            'basketball-shorts': {
+                name: 'Performance Shorts',
+                price: 34.99,
+                image: 'img/basketball-shorts.jpg',
+                images: [
+                    'img/basketball-shorts.jpg',
+                    'img/basketball-shorts-side.jpg'
+                ],
+                description: 'Lightweight and breathable basketball shorts for optimal performance.',
+                fullDescription: '<p>Our Performance Shorts are designed for the modern basketball player. Featuring moisture-wicking fabric and a comfortable elastic waistband with drawstring.</p><p>Includes side pockets and a built-in liner for added comfort.</p>',
+                category: 'Apparel',
+                sku: 'APP-001',
+                inStock: true,
+                specs: {
+                    'Material': '100% Polyester',
+                    'Length': 'Above knee',
+                    'Pockets': '2 side pockets',
+                    'Care': 'Machine wash cold',
+                    'Sizes': 'S, M, L, XL, XXL',
+                    'Features': 'Moisture-wicking, Quick-dry'
+                }
+            },
+            'basketball-socks': {
+                name: 'Elite Basketball Socks',
+                price: 14.99,
+                image: 'img/basketball-socks.jpg',
+                images: [
+                    'img/basketball-socks.jpg',
+                    'img/basketball-socks-detail.jpg'
+                ],
+                description: 'High-performance basketball socks with extra cushioning and support.',
+                fullDescription: '<p>Take your game to the next level with our Elite Basketball Socks. Featuring targeted cushioning in high-impact areas, arch support, and moisture-wicking fabric to keep your feet dry and comfortable.</p>',
+                category: 'Accessories',
+                sku: 'ACC-001',
+                inStock: true,
+                specs: {
+                    'Material': 'Cotton/Polyester/Spandex blend',
+                    'Cushioning': 'Heel and toe',
+                    'Height': 'Crew',
+                    'Sizes': 'S (US 4-7), M (US 8-12), L (US 13-15)',
+                    'Features': 'Moisture-wicking, Arch support, Cushioned sole'
+                }
+            }
+        };
+
+        // DOM Elements
+        const elements = {
+            productTitle: document.getElementById('productTitle'),
+            productPrice: document.getElementById('productPrice'),
+            productImage: document.getElementById('mainProductImage'),
+            productDescription: document.getElementById('productDescription'),
+            addToCartBtn: document.getElementById('addToCartBtn'),
+            thumbnailContainer: document.getElementById('thumbnailContainer')
+        };
+
+        // Initialize product page
+        const initProductPage = () => {
+            // Get product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (!productId) {
+                showError('No product ID provided');
+                return;
+            }
+
+            const product = products[productId];
+
+            if (!product) {
+                showError('Product not found');
+                return;
+            }
+
+            // Update product details
+            elements.productTitle.textContent = product.name;
+            elements.productPrice.textContent = `$${product.price.toFixed(2)}`;
+            
+            // Set main product image with error handling
+            const mainImg = new Image();
+            mainImg.onerror = () => {
+                elements.productImage.src = 'https://via.placeholder.com/600x600?text=Image+Not+Available';
+            };
+            mainImg.src = product.image;
+            elements.productImage.src = product.image;
+            elements.productImage.alt = product.name;
+            
+            // Update description
+            elements.productDescription.innerHTML = product.fullDescription || 
+                `<p>${product.description || 'No description available.'}</p>`;
+
+            // Update thumbnails if container exists
+            if (elements.thumbnailContainer && product.images?.length) {
+                elements.thumbnailContainer.innerHTML = product.images.map((img, index) => `
+                    <div class="thumbnail ${index === 0 ? 'active' : ''}" 
+                         onclick="document.getElementById('mainProductImage').src='${img}'">
+                        <img src="${img}" alt="${product.name} - Thumbnail ${index + 1}" 
+                             onerror="this.src='https://via.placeholder.com/100?text=Thumb+${index + 1}'">
+                    </div>
+                `).join('');
+            }
+
+            // Set up add to cart button
+            if (elements.addToCartBtn) {
+                elements.addToCartBtn.onclick = () => {
+                    // Make sure cart is available
+                    if (typeof cart !== 'undefined') {
+                        cart.addToCart({
+                            id: productId,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image
+                        });
+                    } else {
+                        alert('Shopping cart is not available. Please try again later.');
+                    }
+                };
+            }
+
+            // Update page title
+            document.title = `${product.name} | Your Store Name`;
+            
+            // Update meta description for SEO
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.content = product.description || `Buy ${product.name} - ${product.category}`;
+            }
+        };
+
+        // Show error message
+        function showError(message) {
+            const mainContent = document.querySelector('main');
+            if (mainContent) {
+                mainContent.innerHTML = `
+                    <div class="error-message">
+                        <h2>${message}</h2>
+                        <p>We couldn't find the product you're looking for.</p>
+                        <a href="products.html" class="btn">Browse Products</a>
+                    </div>
+                `;
+            }
+            document.title = 'Product Not Found | Your Store Name';
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initProductPage);
+    </script>
+
+    <!-- Include scripts -->
+    <script src="darkmode.js"></script>
+    <script src="node.js"></script>
+    <script>
+        // Wait for all scripts to load
+        window.addEventListener('load', function() {
+            // Initialize dark mode if available
+            if (typeof initDarkMode === 'function') {
+                initDarkMode();
+            }
+            
+            // Initialize search functionality if search.js is loaded
+            if (typeof performSearch === 'function') {
+                const searchForm = document.getElementById('searchForm');
+                const searchInput = document.getElementById('searchInput');
+                
+                if (searchForm && searchInput) {
+                    searchForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const query = searchInput.value.trim();
+                        if (query) {
+                            performSearch(query);
+                        }
+                    });
+                    
+                    searchInput.addEventListener('input', function() {
+                        const query = this.value.trim();
+                        if (query.length > 1) {
+                            performSearch(query);
+                        } else {
+                            const searchResults = document.getElementById('searchResults');
+                            if (searchResults) searchResults.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+    <script src="search.js"></script>
+</body>
+</html>

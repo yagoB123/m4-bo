@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Basketball Pro Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-basketball-ball"></i>
+                <span>Basketball Pro Shop</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" type="button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="search-container">
+                    <form id="searchForm" class="search-form">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                <a href="javascript:void(0);" class="cart-btn nav-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge"></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="products-header">
+            <h1>Our Products</h1>
+            <div class="product-counts">
+                <div class="count-item">
+                    <i class="fas fa-shoe-prints"></i>
+                    <span>23 Shoes</span>
+                </div>
+                <div class="count-item">
+                    <i class="fas fa-basketball-ball"></i>
+                    <span>15 Basketballs</span>
+                </div>
+                <div class="count-item">
+                    <i class="fas fa-tshirt"></i>
+                    <span>30 Jerseys</span>
+                </div>
+            </div>
+            <div class="view-cart-btn-container">
+                <a href="cart.html" class="view-cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>View Cart</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="categories-filter">
+            <div class="category-btn active" data-category="all">All Products</div>
+            <div class="category-btn" data-category="shoes">Shoes</div>
+            <div class="category-btn" data-category="basketballs">Basketballs</div>
+            <div class="category-btn" data-category="jerseys">Jerseys</div>
+        </section>
+
+        <section class="products-grid">
+            <a href="product-detail.html?id=pro-training-shoes" class="product-card" data-category="shoes">
+                <img src="https://via.placeholder.com/300x300" alt="Basketball Shoes">
+                <div class="product-content">
+                    <h3>Pro Training Shoes</h3>
+                    <p class="price">$129.99</p>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); if (window.cart) { window.cart.addToCart({id: 'pro-training-shoes', name: 'Pro Training Shoes', price: 129.99, image: 'https://via.placeholder.com/300x300'}) }">
+                        Add to Cart
+                    </button>
+                </div>
+            </a>
+            <a href="product-detail.html?id=classic-high-tops" class="product-card" data-category="shoes">
+                <img src="https://via.placeholder.com/300x300" alt="Basketball Shoes">
+                <div class="product-content">
+                    <h3>Classic High-Tops</h3>
+                    <p class="price">$149.99</p>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); if (window.cart) { window.cart.addToCart({id: 'classic-high-tops', name: 'Classic High-Tops', price: 149.99, image: 'https://via.placeholder.com/300x300'}) }">
+                        Add to Cart
+                    </button>
+                </div>
+            </a>
+            <a href="product-detail.html?id=wilson-evolution" class="product-card" data-category="basketballs">
+                <img src="img/wilson-ball.jpg" alt="Wilson Evolution Basketball">
+                <div class="product-content">
+                    <h3>Wilson Evolution</h3>
+                    <p class="price">$64.99</p>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); if (window.cart) { window.cart.addToCart({id: 'wilson-evolution', name: 'Wilson Evolution', price: 64.99, image: 'img/wilson-ball.jpg'}) }">
+                        Add to Cart
+                    </button>
+                </div>
+            </a>
+            <a href="product-detail.html?id=varsity-ball" class="product-card" data-category="basketballs">
+                <img src="img/varsity-ball.jpg" alt="Varsity Basketball">
+                <div class="product-content">
+                    <h3>Varsity Basketball</h3>
+                    <p class="price">$49.99</p>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); if (window.cart) { window.cart.addToCart({id: 'varsity-ball', name: 'Varsity Basketball', price: 49.99, image: 'img/varsity-ball.jpg'}) }">
+                        Add to Cart
+                    </button>
+                </div>
+            </a>
+            <a href="product-detail.html?id=team-jersey" class="product-card" data-category="jerseys">
+                <img src="https://via.placeholder.com/300x300" alt="Team Jersey">
+                <div class="product-content">
+                    <h3>Team Jersey</h3>
+                    <p class="price">$59.99</p>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); if (window.cart) { window.cart.addToCart({id: 'team-jersey', name: 'Team Jersey', price: 59.99, image: 'https://via.placeholder.com/300x300'}) }">
+                        Add to Cart
+                    </button>
+                </div>
+            </a>
+            <a href="product-detail.html?id=practice-jersey" class="product-card" data-category="jerseys">
+                <img src="https://via.placeholder.com/300x300" alt="Practice Jersey">
+                <div class="product-content">
+                    <h3>Practice Jersey</h3>
+                    <p class="price">$49.99</p>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); if (window.cart) { window.cart.addToCart({id: 'practice-jersey', name: 'Practice Jersey', price: 49.99, image: 'https://via.placeholder.com/300x300'}) }">
+                        Add to Cart
+                    </button>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.category-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            // Add click event listeners to filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-category');
+                    
+                    // Filter products
+                    productCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Your one-stop shop for all basketball needs</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@basketballproshop.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Basketball Pro Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+           
+            <p class="empty-cart-message">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+    
+
+    <script src="darkmode.js"></script>
+    <script>
+       
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initDarkMode === 'function') {
+                        initDarkMode();
+            }
+            if (typeof initCart === 'function') {
+                initCart();
+            }
+        });
+    </script>
+    <script src="node.js"></script>
+    <script src="search.js"></script>
+</body>
+</html>
